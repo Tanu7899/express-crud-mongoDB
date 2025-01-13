@@ -1,13 +1,14 @@
 const express = require('express');
 
-const{newUserRegister, existingUserLogin} = require('../controllers/auth.controller')
+const{newMemberRegister, existingMemberLogin} = require('../controllers/auth.controller')
+const {adminAuthenticate} = require('../middleware/authenticate')
 
 const router = express.Router();
 
 // Register
-router.post('/register', newUserRegister);
+router.post('/register',adminAuthenticate, newMemberRegister);
 
 // Login
-router.post('/login', existingUserLogin);
+router.post('/login', existingMemberLogin);
 
 module.exports = router;

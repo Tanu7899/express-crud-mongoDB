@@ -1,18 +1,19 @@
 const express = require('express')
-const authenticate = require('../middleware/authenticate')
+const { body, validationResult } = require('express-validator');
+const {adminAuthenticate, combinedAuthenticate} = require('../middleware/authenticate')
 const {getProducts,getOneProduct,addProduct,updateProduct,deleteProduct} = require("../controllers/product.controller")
 
 const router = express.Router()
 
-router.get('/', authenticate, getProducts)
+router.get('/', combinedAuthenticate, getProducts)
 
-router.get('/:id', authenticate, getOneProduct)
+router.get('/:id', combinedAuthenticate, getOneProduct)
 
-router.post('/', authenticate, addProduct)
+router.post('/', adminAuthenticate, addProduct)
 
-router.put('/:id', authenticate, updateProduct)
+router.put('/:id', adminAuthenticate, updateProduct)
 
-router.delete('/:id', authenticate, deleteProduct)
+router.delete('/:id', adminAuthenticate, deleteProduct)
 
 
 module.exports = router
